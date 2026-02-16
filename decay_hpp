@@ -1,0 +1,23 @@
+// #ifndef DECAY_HPP 
+// #define DECAY_HPP
+
+// #include <utility>
+
+// #include "remove_reference.hpp"
+
+// namespace myStd
+// {
+//     template <typename T>
+//     struct decay
+//     {
+//         template <typename U>
+//         static auto check(U) -> decltype(U);
+
+//         using type = decltype(check(std::declval<T>()));
+//     };
+
+//     template <typename T>
+//     using decay_t = typename decay<T>::type;
+// }
+
+// #endif

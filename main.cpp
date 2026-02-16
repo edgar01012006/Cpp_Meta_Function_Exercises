@@ -10,6 +10,12 @@
 #include "add_lvalue_reference.hpp"
 #include "is_const.hpp"
 
+#include "is_base_of.hpp"
+#include "is_default_constructible.hpp"
+#include "has_operator_plus.hpp"
+#include "decay_hpp"
+
+
 using namespace myStd;
 
 int main() {
@@ -53,6 +59,34 @@ int main() {
     
     // To check if the REF refers to a const:
     static_assert(is_const_v<remove_reference_t<const int&>>, "This is how you check inner const");
+
+    // is_base_of
+    class A{};
+    class B : public A {};
+    static_assert(is_base_of_v<A, A>);
+    static_assert(is_base_of_v<A, B>);
+    static_assert(!(is_base_of_v<B, A>));
+    static_assert(!(is_base_of_v<int, int>));
+
+    // is_default_constructible
+    class defConstr {};
+    class notDefConstr {
+        notDefConstr();
+    };
+    static_assert(is_default_constructible_v<defConstr>);
+    static_assert(!(is_default_constructible_v<notDefConstr>));
+    static_assert(is_default_constructible_v<int>);
+
+    // has_operator_plus
+    class hasOpP {
+        public:
+            int operator+(hasOpP);
+    };
+    class noHasOpP {};
+    static_assert(has_operator_plus_v<hasOpP>);
+    static_assert(!(has_operator_plus_v<noHasOpP>));
+    static_assert(has_operator_plus_v<int>);
+
 
     std::cout << "All meta-function tests passed successfully!" << std::endl;
     return 0;
