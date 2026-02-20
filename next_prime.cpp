@@ -18,11 +18,28 @@ struct is_prime<1>
     constexpr static bool value = false;
 };
 
+
+template <size_t N, bool = is_prime<N>::value>
+struct next_prime_impl;
+
+template <size_t N>
+struct next_prime_impl<N, true>
+{
+    static constexpr size_t value = N;
+};
+
+template <size_t N>
+struct next_prime_impl<N, false>
+{
+    static constexpr size_t value = next_prime_impl<N + 1>::value;
+};
+
 template <size_t N>
 struct next_prime
-{   
-    constexpr static size_t value = (is_prime<N + 1>::value == true) ? N + 1 : (next_prime<N + 1>::value);
+{
+    static constexpr size_t value = next_prime_impl<N + 1>::value;
 };
+
 
 int main()
 {
