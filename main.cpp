@@ -12,7 +12,7 @@
 #include "is_base_of.hpp"
 #include "is_default_constructible.hpp"
 #include "has_operator_plus.hpp"
-#include "decay_hpp"
+#include "decay.hpp"
 
 using namespace myStd;
 
